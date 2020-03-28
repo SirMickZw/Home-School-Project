@@ -9,66 +9,70 @@
   </div>
 
   {% if current_user.user_role=='Student'%}
-  <!-- Project Section -->
-  <div class="w3-container w3-padding-32" id="projects">
-    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Classes</h3>
-  </div>
+<!--Header-->
+    <div class="w3-container w3-padding-32" id="projects">
+      <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Classes</h3>
+    </div>
+<!--first row-->
+    <div class="w3-row-padding">
+<!--Mathematics-->
+      <div class="w3-col l3 m6 w3-margin-bottom">
+        <div class="w3-display-container">
+          <div class="w3-display-topleft w3-black w3-padding">Mathematics</div>
+          <a href="{{url_for('classroom', course_id='1')}}"><img src="{{url_for('static', filename='images/hs.jpg')}}"class="w3-round w3-image w3-hover-opacity" alt="House" style="width:100%"></a>
+        </div>
+      </div>
+<!--Physics-->
+      <div class="w3-col l3 m6 w3-margin-bottom">
+        <div class="w3-display-container">
+          <a href="#"><div class="w3-display-topleft w3-black w3-padding">Physics</div></a>
+          <a href="{{url_for('classroom', course_id='2')}}"><img src="{{url_for('static', filename='images/hs.jpg')}}"class="w3-round w3-image w3-hover-opacity" alt="House" style="width:100%"></a>
+        </div>
+      </div>
 
-  <div class="w3-row-padding">
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-display-container">
-        <div class="w3-display-topleft w3-black w3-padding">Mathematics</div>
-        <a href="{{url_for('classroom', course_id='1')}}"><img src="{{url_for('static', filename='images/hs.jpg')}}"class="w3-round w3-image w3-hover-opacity" alt="House" style="width:100%"></a>
+      <div class="w3-col l3 m6 w3-margin-bottom">
+        <div class="w3-display-container">
+          <a href="#"><div class="w3-display-topleft w3-black w3-padding">Chemistry</div></a>
+          <a href="{{url_for('classroom', course_id='3')}}"><img src="{{url_for('static', filename='images/hs.jpg')}}"class="w3-round w3-image w3-hover-opacity" alt="House" style="width:100%"></a>
+        </div>
+      </div>
+<!--Biology-->
+      <div class="w3-col l3 m6 w3-margin-bottom">
+        <div class="w3-display-container">
+          <a href="{{url_for('classroom', course_id='4')}}"><div class="w3-display-topleft w3-black w3-padding"> Biology</div></a>
+          <a href="#"><img src="{{url_for('static', filename='images/hs.jpg')}}"class="w3-round w3-image w3-hover-opacity" alt="House" style="width:100%"></a>
+        </div>
       </div>
     </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-display-container">
-        <a href="#"><div class="w3-display-topleft w3-black w3-padding">Physics</div></a>
-        <a href="{{url_for('classroom', course_id='2')}}"><img src="{{url_for('static', filename='images/hs.jpg')}}"class="w3-round w3-image w3-hover-opacity" alt="House" style="width:100%"></a>
+<!--Second row-->
+    <div class="w3-row-padding">
+      <div class="w3-col l3 m6 w3-margin-bottom">
+        <div class="w3-display-container">
+          <a href="{{url_for('classroom', course_id='5')}}"><div class="w3-display-topleft w3-black w3-padding"> Accounting</div></a>
+          <a href="#"><img src="{{url_for('static', filename='images/hs.jpg')}}"class="w3-round w3-image w3-hover-opacity" alt="House" style="width:100%"></a>
+        </div>
+      </div>
+      <div class="w3-col l3 m6 w3-margin-bottom">
+        <div class="w3-display-container">
+          <a href="#"><div class="w3-display-topleft w3-black w3-padding"> Geography</div></a>
+          <a href="{{url_for('classroom', course_id='6')}}"><img src="{{url_for('static', filename='images/hs.jpg')}}" class="w3-round w3-image w3-hover-opacity" alt="House" style="width:100%"></a>
+        </div>
+      </div>
+      <div class="w3-col l3 m6 w3-margin-bottom">
+        <div class="w3-display-container">
+          <a href="{{url_for('classroom', course_id='7')}}"><div class="w3-display-topleft w3-black w3-padding">History</div></a>
+          <a href="#"><img src="{{url_for('static', filename='images/hs.jpg')}}"class="w3-round w3-image w3-hover-opacity"  alt="House" style="width:100%"></a>
+        </div>
+      </div>
+      <div class="w3-col l3 m6 w3-margin-bottom">
+        <div class="w3-display-container">
+          <a href="{{url_for('classroom', course_id='8')}}"><div class="w3-display-topleft w3-black w3-padding"> English</div></a>
+          <a href="#"><img src="{{url_for('static', filename='images/hs.jpg')}}" class="w3-round w3-image w3-hover-opacity" alt="House" style="width:100%"></a>
+        </div>
       </div>
     </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-display-container">
-        <a href="#"><div class="w3-display-topleft w3-black w3-padding">Chemistry</div></a>
-        <a href="{{url_for('classroom', course_id='3')}}"><img src="{{url_for('static', filename='images/hs.jpg')}}"class="w3-round w3-image w3-hover-opacity" alt="House" style="width:100%"></a>
-      </div>
-    </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-display-container">
-        <a href="{{url_for('classroom', course_id='4')}}"><div class="w3-display-topleft w3-black w3-padding"> Biology</div></a>
-        <a href="#"><img src="{{url_for('static', filename='images/hs.jpg')}}"class="w3-round w3-image w3-hover-opacity" alt="House" style="width:100%"></a>
-      </div>
-    </div>
-  </div>
-
-  <div class="w3-row-padding">
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-display-container">
-        <a href="{{url_for('classroom', course_id='5')}}"><div class="w3-display-topleft w3-black w3-padding"> Accounting</div></a>
-        <a href="#"><img src="{{url_for('static', filename='images/hs.jpg')}}"class="w3-round w3-image w3-hover-opacity" alt="House" style="width:100%"></a>
-      </div>
-    </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-display-container">
-        <a href="#"><div class="w3-display-topleft w3-black w3-padding"> Geography</div></a>
-        <a href="{{url_for('classroom', course_id='6')}}"><img src="{{url_for('static', filename='images/hs.jpg')}}" class="w3-round w3-image w3-hover-opacity" alt="House" style="width:100%"></a>
-      </div>
-    </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-display-container">
-        <a href="{{url_for('classroom', course_id='7')}}"><div class="w3-display-topleft w3-black w3-padding">History</div></a>
-        <a href="#"><img src="{{url_for('static', filename='images/hs.jpg')}}"class="w3-round w3-image w3-hover-opacity"  alt="House" style="width:100%"></a>
-      </div>
-    </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-display-container">
-        <a href="{{url_for('classroom', course_id='8')}}"><div class="w3-display-topleft w3-black w3-padding"> English</div></a>
-        <a href="#"><img src="{{url_for('static', filename='images/hs.jpg')}}" class="w3-round w3-image w3-hover-opacity" alt="House" style="width:100%"></a>
-      </div>
-    </div>
-  </div>
-  </article>
-  
+    </article>
+    
   {%endif%}
 
   {% if current_user.user_role=='Lecturer'%}
