@@ -1,0 +1,99 @@
+{% extends "layout.html"%}
+{% block content %}
+  
+<div class="content-section">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">{{legend }}</legend>
+<!--title section-->
+            <div class="form-group">
+                {{form.title.label(class="form-control-label")}} 
+                {%if form.title.errors%}
+                    {{form.title(class="form-control  form-control-lg is-invalid")}} 
+                    <div class="invalid-feedback">
+                        {%for error in form.title.errors%}
+                            <span>{{error}}</span>
+                        {%endfor%}
+                    </div>
+                {%else%}
+                    {{form.title(class="form-control  form-control-lg")}} 
+                {%endif%}
+            </div>
+<!--COntent Entrance Section-->
+            <div class="form-group">
+                {{form.content.label(class="form-control-label")}} 
+                {%if form.content.errors%}
+                    {{form.content(class="form-control  form-control-lg is-invalid")}} 
+                    <div class="invalid-feedback">
+                        {%for error in form.content.errors%}
+                            <span>{{error}}</span>
+                        {%endfor%}
+                    </div>
+                {%else%}
+                    {{form.content(class="form-control  form-control-lg ")}} 
+                {%endif%}
+            </div>   
+<!--RAdio Butto
+n-->
+            <div class="row">
+                  <div class="col-sm-3">
+                      <!--Select Post Type-->
+                    <div class="form-group">
+                        {{form.subject.label(class="radio-inline")}} 
+                        {%if form.subject.errors%}
+                            {{form.subject(class="radio-inline  form-contol-lg is-ivalid")}} 
+                            <div class="">
+                                {%for error in form.post_type.errors%}
+                                    <span>{{error}}</span>
+                                {%endfor%}
+                            </div>
+                        {%else%}
+                            {{form.subject(class="radio-inline ")}} 
+                        {%endif%}
+                    </div> 
+                </div>
+
+                <!--Select Post Type-->
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        {{form.post_type.label(class="radio-inline")}} 
+                        {%if form.post_type.errors%}
+                            {{form.post_type(class="radio-inline  form-contol-lg is-ivalid")}} 
+                            <div>
+                                {%for error in form.post_type.errors%}
+                                    <span>{{error}}</span>
+                                {%endfor%}
+                            </div>
+                        {%else%}
+                            {{form.post_type()}} 
+                        {%endif%}
+                    </div> 
+                </div>
+
+
+                <!--Attatch media-->
+                <div class="col-sm-3 radio-inline">
+                    <div class="form-group">
+                        {{form.attatchment.label()}}
+                        {{form.attatchment(class="form-control-file")}}
+                        {%if form.attatchment.errors%}
+                                {%for error in form.attatchment.errors%}
+                                        <span class="text-danger">{{error}}</span>
+                                {%endfor%}
+                        {%endif%}
+                </div>
+                </div>
+              
+            </div>
+        </fieldset>
+
+        <!--submti btn-->
+        <div class="form-group">
+            {{form.submit(class="btn btn-outline-info")}}
+        </div>
+    </form>
+</div>
+<div class="border-top tp-3">
+</div>    
+{% endblock %}

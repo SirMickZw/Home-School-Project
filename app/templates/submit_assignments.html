@@ -1,0 +1,60 @@
+{% extends "layout.html"%}
+{% block content %}
+  
+<div class="content-section">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">{{legend }}</legend>
+<!--Assignment Title-->
+            <div class="form-group">
+                {{form.title.label(class="form-control-label")}} 
+                {%if form.title.errors%}
+                    {{form.title(class="form-control  form-control-lg is-invalid")}} 
+                    <div class="invalid-feedback">
+                        {%for error in form.title.errors%}
+                            <span>{{error}}</span>
+                        {%endfor%}
+                    </div>
+                {%else%}
+                    {{form.title(class="form-control  form-control-lg")}} 
+                {%endif%}
+            </div>
+<!--Student Name-->
+            <div class="form-group">
+                {{form.student_name.label(class="form-control-label")}} 
+                {%if form.student_name.errors%}
+                    {{form.student_name(class="form-control  form-control-lg is-invalid")}} 
+                    <div class="invalid-feedback">
+                        {%for error in form.student_name.errors%}
+                            <span>{{error}}</span>
+                        {%endfor%}
+                    </div>
+                {%else%}
+                    {{form.student_name(class="form-control  form-control-lg ")}} 
+                {%endif%}
+            </div>
+<!--COntent Entrance Section-->
+<div class="form-group" style="height:  300px;">
+    {{form.content.label(class="form-control-label")}} 
+    {%if form.content.errors%}
+        {{form.content(class="form-control  form-control-lg is-invalid")}} 
+        <div class="invalid-feedback">
+            {%for error in form.content.errors%}
+                <span>{{error}}</span>
+            {%endfor%}
+        </div>
+    {%else%}
+        {{form.content(class="form-control  form-control-lg ", style="height:  300px;",  placeholder="You can Write Your Answer on a Word Document, Copy it and Past it to this section")}} 
+    {%endif%}
+</div>
+        </fieldset>
+<!--submti btn-->
+        <div class="form-group">
+            {{form.submit(class="btn btn-outline-info")}}
+        </div>
+    </form>
+</div>
+<div class="border-top tp-3">
+</div>    
+{% endblock %}

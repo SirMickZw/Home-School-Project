@@ -1,0 +1,22 @@
+from app import db
+from app.models import Subjects, User
+db.drop_all()
+db.create_all()
+sub=Subjects(course_code='TL202001MATH', course_name='Maths')
+db.session.add(sub)
+math=Subjects(course_code='TL202002PHY', course_name='Physics')
+db.session.add(math)
+phy=Subjects(course_code='TL202003CHEM', course_name='Chemistry')
+db.session.add(phy)
+chem=Subjects(course_code='TL202004BIO', course_name='Biology')
+db.session.add(chem)
+c=Subjects(course_code='TL202005ACC', course_name='Accounts')
+db.session.add(c)
+geo=Subjects(course_code='TL202006GEO', course_name='Geography')
+db.session.add(geo)
+his=Subjects(course_code='TL202007HIS', course_name='History')
+db.session.add(his)
+eng=Subjects(course_code='TL202008ENG', course_name='English')
+db.session.add(eng)
+
+db.session.commit()

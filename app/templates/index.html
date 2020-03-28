@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+        <!-- Bootstrap CSS -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/CSS" href="{{url_for('static', filename='main.css')}}">
+        {% if title %}
+         <title>
+            Online School | {{title}}
+        </title>
+        {% else %}
+        <title>Online School</title>
+        {% endif %}
+
+
+        <style>
+          body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
+          body, html {
+            height: 100%;
+            color: #777;
+            line-height: 1.8;
+          }
+          
+          /* Create a Parallax Effect */
+          .bgimg-1, .bgimg-2, .bgimg-3 {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+          }
+          
+          /* First image (Logo. Full height) */
+          .bgimg-1 {
+            background-image: url('/images/p1.jpg');
+            min-height: 100%;
+          }
+          
+          /* Second image (Portfolio) */
+          .bgimg-2 {
+            background-image: url("/images/parallax2.jpg");
+            min-height: 400px;
+          }
+          
+          /* Third image (Contact) */
+          .bgimg-3 {
+            background-image: url("{{url_for('static', filename='images/p1.jpg')}}");
+            min-height: 400px;
+          }
+          
+          .w3-wide {letter-spacing: 10px;}
+          .w3-hover-opacity {cursor: pointer;}
+          
+          /* Turn off parallax scrolling for tablets and phones */
+          @media only screen and (max-device-width: 1600px) {
+            .bgimg-1, .bgimg-2, .bgimg-3 {
+              background-attachment: scroll;
+              min-height: 400px;
+            }
+          }
+          </style>
+          
+    </head>   
+<body>
+  <header class="site-header">
+    <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top w3-animate-opacity">
+        <div class="container">
+        <a class="navbar-brand mr-4" href="/">TechieLuminnaries.Org</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+            <a class="nav-item nav-link" href="{{url_for('home')}}">Home</a>
+            <a class="nav-item nav-link" href="{{url_for('about')}}">About</a>
+            </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav">
+              {%if  current_user.is_authenticated%}
+              <a class="nav-item nav-link" href="{{url_for('new_post')}}">Post</a>
+              <a class="nav-item nav-link" href="{{url_for('account')}}">Account</a>
+              <a class="nav-item nav-link" href="{{url_for('logout')}}">Logout</a>
+              {%else%}
+                <a class="nav-item nav-link" href="{{url_for('login')}}">Login</a>
+                <a class="nav-item nav-link" href="{{url_for('register')}}">Register</a>
+              {%endif%}
+            </div>
+         </div>
+      </div>
+    </nav>
+</header>
+<div class="bgimg-3 w3-display-container w3-opacity-min" id="home">
+<div class="w3-display-middle" style="white-space:nowrap;">
+  <span class="w3-center w3-padding-large w3-green w3-xlarge w3-wide w3-animate-opacity">TechieLuminaries <span class="w3-hide-small">Online</span> College </span>
+</div>
+</div>
+<div class="w3-row-padding w3-center w3-section">
+<a href="{{url_for('home')}}" class="btn btn-secondary btn-lg">Get Started</a>
+</div>
+
+<!-- Modal for full size images on click-->
+<div id="modal01" class="w3-modal w3-black" onclick="this.style.display='none'">
+  <span class="w3-button w3-large w3-black w3-display-topright" title="Close Modal Image"><i class="fa fa-remove"></i></span>
+  <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
+    <img id="img01" class="w3-image">
+    <p id="caption" class="w3-opacity w3-large"></p>
+  </div>
+</div>
+
+
+<!-- Container (About Section) -->
+<div class="w3-content w3-container w3-padding-64" id="about">
+<h3 class="w3-center">The Future of Education</h3>
+<p>Technology has transformed almost every aspect of our lives, and now it seems that education systems around the world are due for an update.</p>
+
+<p>Educators are tapping into the digital revolution and adopting new technologies to help students reach their full potential, but can they adapt quickly enough to prepare children for the changing future of work?</p>
+<div class="w3-row">
+  <div class="w3-col m6 w3-center w3-padding-large">
+    <img src="{{url_for('static', filename='images/hs.jpg')}}" class="w3-round w3-image w3-opacity w3-hover-opacity-off" alt="Photo of Me" width="500" height="333">
+  </div>
+
+  <!-- Hide this text on small devices -->
+  <div class="w3-col m6 w3-hide-small w3-padding-large">
+    <p>Homeschooling, also known as home education, is the education of children at home or a variety of places other than school. Home education is usually conducted by a parent, tutor, or an online teacher. Many families use less formal ways of educating.</p>
+    <p>If you have the internet, you can homeschool for free. You can look up articles, YouTube videos, use Netflix, Minecraft even! You can access online books and free online homeschool resources as well. Many bloggers (such as myself) create free printable resources for you to supplement your homeschool.</p>
+  </div>
+</div>
+</div>
+
+<!-- Third Parallax Image with Portfolio Text -->
+<div class="bgimg-3 w3-display-container w3-opacity-min">
+  <div class="w3-display-middle">
+     <span class="w3-xxlarge w3-text-white w3-wide">CONTACT</span>
+  </div>
+</div>
+
+</body>

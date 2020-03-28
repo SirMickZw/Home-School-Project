@@ -1,0 +1,46 @@
+{% extends "layout.html"%}
+{% block content %}
+<!--This is where the course details will be displayed at--> 
+<div class="media">
+    <div class="media-body">
+      <h2 class="account-heading">{{ suject.course_name }}</h2>
+      <p class="text-secondary">{{suject.course_code}}</p>
+    </div>
+</div>
+
+<!--This is where Reading aterials and assingments are packed in-->
+<div class="row">
+  <div class="col-md-6">
+    <h2> <u>Reading Material</u></h2><hr>
+    {% for post in posts %}
+        <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{url_for('static', filename='profile_pics/'+post.author.image_file)}}">
+            <div class="media-body">
+              <div class="article-metadata">
+                  <a class="mr-2" href="#">{{ post.author.username }}</a>
+                  <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+              </div>
+              <h2><a class="article-title" href="{{url_for('post', post_id=post.id)}}">{{ post.title }}</a></h2>
+              <p class="article-content" style="height: 100px; overflow: hidden;">{{ post.content }}</p>
+            </div>
+        </article>
+    {%endfor%}
+  </div>
+
+  <div class="col-sm-6">
+    <h2> <u>Assignments</u></h2><hr>
+    {% for task in tasks %}
+    <article>
+      <div class="media-body content-section" ">
+        <div class="article-metadata"   >
+            <a class="mr-2" href="#">{{ task.post_type }}</a>
+            <small class="text-muted">{{ task.date_posted.strftime('%Y-%m-%d') }}</small>
+        </div>
+        <h2><a class="article-title" href="{{url_for('submit_assignment', assignment_id=task.assignment_id)}}">{{ task.title }}</a></h2>
+        <p class="article-content" >{{ task.content }}</p>
+      </div>
+    </article>
+    {%endfor%}
+  </div>
+</div>    
+{% endblock %}

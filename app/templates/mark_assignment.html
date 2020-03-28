@@ -1,0 +1,50 @@
+{% extends "layout.html"%}
+{% block content %}
+  
+<article class="media content-section">
+    <div class="media-body">
+    <div class="article-metadata">
+        <a class="mr-2" href="#">{{ post.student_name }}</a>
+        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Grade  </button>
+    </div>
+    <p class="article-content">{{ post.file }}</p>
+    </div>
+</article>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+<!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+              {{form.grade.label(class="form-control-label")}} 
+              {%if form.grade.errors%}
+                  {{form.grade(class="form-control  form-control-lg is-invalid")}} 
+                  <div class="invalid-feedback">
+                      {%for error in form.grade.errors%}
+                          <span>{{error}}</span>
+                      {%endfor%}
+                  </div>
+              {%else%}
+                  {{form.grade(class="form-control  form-control-lg ")}} 
+              {%endif%}
+            </div>
+            <button type="submit" post_id={{post.id}}>Submit</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+{% endblock %}
