@@ -1,14 +1,16 @@
-{% extends "layout.html"%}
+     {% extends "layout.html"%}
 {% block content %}
-  
-<table border = 1>
-    {% for key, value in result.items() %}
+  <h2>{{result.student_name}}</h2>
+<table border = 1 style="padding: 5px; margin: 5px;">
+    {% for result in result %}
        <tr>
-          <th> {{ key }} </th>
-          <td> {{ value }} </td>
+          <th> {{ result.subject }} </th>
+          <td> {{ result.title }} </td>
+          <td> {{ result.marks }}%</td>
        </tr>
     {% endfor %}
  </table>    
 {% endblock %}
 
 
+     

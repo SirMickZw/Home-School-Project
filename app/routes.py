@@ -8,7 +8,7 @@ from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort, send_file
 from app import app, db, bcrypt
 from app.read_doc import ReadingTextDocument
-from app.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, SubmitAssignmentForm, AddGradesForm
+from app.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, SubmitAssignmentForm, AddGradesForm, SearchStudentForm
 from app.models import User, Post, Subjects, Assignment, SubmittedAssignment
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -23,7 +23,8 @@ def home():
 	if current_user.is_authenticated:
 		image_file=url_for('static', filename='profile_pics/'+current_user.image_file)
 		x=image_file
-		return render_template('dashboard.html', image_file='x')
+		form=SearchStudentForm()
+		return render_template('dashboard.html', image_file='x', form=form)
 	posts=Post.query.all()
 	
 
@@ -217,3 +218,11 @@ def mark_assignment(post_id):
 		flash('Marks Have Been Added Succesfuly', 'success')
 		return redirect(url_for('ViewSubmited'))
 	return render_template('mark_assignment.html',form=form, post=post)
+
+@app.route("/student_search", methods=['GET', 'POST'])
+def student_search():
+
+	form=SearchStudentForm()	
+	if form.validate_on_submit():
+		marks=SubmittedAssignment.query.filter_by(student_name=form.name.data).all()
+		return render_template('result.html', result=marks)

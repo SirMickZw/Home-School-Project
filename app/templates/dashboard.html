@@ -81,5 +81,22 @@
 
   {% if current_user.user_role=='Parent'%}
   <h1>Parent</h1>
+  <form action="student_search" method="POST">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+      {{form.name.label(class="form-control-label")}} 
+      {%if form.name.errors%}
+          {{form.name(class="form-control  form-control-lg is-invalid")}} 
+          <div class="invalid-feedback">
+              {%for error in form.name.errors%}
+                  <span>{{error}}</span>
+              {%endfor%}
+          </div>
+      {%else%}
+          {{form.name(class="form-control  form-control-lg ")}} 
+      {%endif%}
+    </div>
+    <button type="search">Search</button>
+  </form>
   {%endif%}
   {%endblock%}

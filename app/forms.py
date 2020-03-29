@@ -62,3 +62,7 @@ class SubmitAssignmentForm(FlaskForm):
 class AddGradesForm(FlaskForm):
 	grade=IntegerField('Grades (%)', validators=	[DataRequired()])
 	submit=SubmitField('Submit ')
+
+class SearchStudentForm(FlaskForm):
+	name=StringField('What is the reg_no of you student', validators=[DataRequired()])
+	search=SubmitField('Search')
