@@ -1,34 +1,19 @@
-import secrets
 import os
 import cv2
-from io import BytesIO
+import secrets
 import numpy as np 
-from werkzeug.utils import secure_filename
 from PIL import Image	
-from flask import render_template, url_for, flash, redirect, request, abort, send_file
+from io import BytesIO
 from app import app, db, bcrypt
-from app.read_doc import ReadingTextDocument
-from app.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, SubmitAssignmentForm, AddGradesForm, SearchStudentForm
-from app.models import User, Post, Subjects, Assignment, SubmittedAssignment
+from werkzeug.utils import secure_filename
 from flask_login import login_user, current_user, logout_user, login_required
-
-ALLOWED_EXTENSIONS = ['txt', 'pdf', 'doc', 'docx', 'ppt', 'pptx']
+from app.models import User, Post, Subjects, Assignment, SubmittedAssignment, Files
+from flask import render_template, url_for, flash, redirect, request, abort, send_file
+from app.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, SubmitAssignmentForm, AddGradesForm, SearchStudentForm
 
 @app.route("/")
 def index():
 	return render_template('index.html')
-
-@app.route("/home")
-def home():
-	if current_user.is_authenticated:
-		image_file=url_for('static', filename='profile_pics/'+current_user.image_file)
-		x=image_file
-		form=SearchStudentForm()
-		return render_template('dashboard.html', image_file='x', form=form)
-	posts=Post.query.all()
-	
-
-	return render_template('home.html', posts=posts )
 
 @app.route("/blog")
 def blog():
@@ -38,6 +23,35 @@ def blog():
 @app.route("/about")
 def about():
     return render_template('about.html',title='About')
+
+@app.route("/logout")
+def logout():
+	logout_user()
+	return redirect(url_for('login'))
+
+@app.route("/student_search", methods=['GET', 'POST'])
+def student_search():
+
+	form=SearchStudentForm()	
+	if form.validate_on_submit():
+		marks=SubmittedAssignment.query.filter_by(student_name=form.name.data).all()
+		return render_template('result.html', result=marks)
+
+@app.route("/post/<int:post_id>")
+@login_required
+def post(post_id):
+	post=Post.query.get_or_404(post_id)
+	return render_template('post.html', title=post.title, post=post)
+
+@app.route("/home", methods=['POST', 'GET'])
+def home():
+	if current_user.is_authenticated:
+		image_file=url_for('static', filename='profile_pics/'+current_user.image_file)
+		x=image_file
+		form=SearchStudentForm()
+		return render_template('dashboard.html', title="Dashboard", image_file='x', form=form)
+	posts=Post.query.all()
+	return render_template('home.html', posts=posts )
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -67,11 +81,6 @@ def login():
 		else:
 			flash('invalid email address or password', 'danger')
 	return render_template('login.html', title='login', form=form )
-
-@app.route("/logout")
-def logout():
-	logout_user()
-	return redirect(url_for('login'))
 
 def save_picture(form_picture):
 	random_hex=secrets.token_hex(8)
@@ -122,12 +131,6 @@ def new_post():
 			return redirect(url_for('home'))
 	return render_template('creat_post.html', title='New Post', legend='Create New Post', form=form)
 
-@app.route("/post/<int:post_id>")
-@login_required
-def post(post_id):
-	post=Post.query.get_or_404(post_id)
-	return render_template('post.html', title=post.title, post=post)
-
 @app.route("/post/<int:post_id>/update", methods=['GET', 'POST'])
 def update_post(post_id):
 	post=Post.query.get_or_404(post_id)
@@ -161,7 +164,8 @@ def classroom(course_id):
 	subject=Subjects.query.get_or_404(course_id)
 	tasks=Assignment.query.filter_by(subject=subject.course_name)
 	posts=Post.query.filter_by(subject=subject.course_name).all()
-	return render_template('classroom.html', suject=subject,tasks=tasks, posts=posts)
+	fil=Files.query.filter_by(subject=subject.course_name).all()
+	return render_template('classroom.html', fil=fil, suject=subject,tasks=tasks, posts=posts)
 
 @app.route("/submit_assignment <int:assignment_id>", methods=['GET', 'POST'])
 @login_required
@@ -219,10 +223,35 @@ def mark_assignment(post_id):
 		return redirect(url_for('ViewSubmited'))
 	return render_template('mark_assignment.html',form=form, post=post)
 
-@app.route("/student_search", methods=['GET', 'POST'])
-def student_search():
+@app.route("/upload_file", methods=['POST','GET'])
+@login_required
+def upload_file():
+	if current_user.user_role!='Lecturer':
+		abort(410)
+	if request.method=='POST':
+		if request.files:
+			fle=request.files["file"]
+			random_hex=secrets.token_hex(8)
+			_, f_ext=os.path.splitext(fle.filename)
+			fn=random_hex+f_ext
+			if not allowed_extensions(fle.filename):
+				flash('File Extension Not Allowed', 'danger')
+				return redirect(request.url)
+			fle.save(os.path.join(app.config['VIDEO_UPLOADS'], fn))
+			tit=request.form['title']
+			sub=request.form['subject']
+			db_file=Files(file_name=fn,title=tit, subject=sub)
+			db.session.add(db_file)
+			db.session.commit()
+			flash("file saved"+fn, 'success')
+			return redirect(request.url)
+	return render_template('upload_file.html', legend='Select File')
 
-	form=SearchStudentForm()	
-	if form.validate_on_submit():
-		marks=SubmittedAssignment.query.filter_by(student_name=form.name.data).all()
-		return render_template('result.html', result=marks)
+def allowed_extensions(file_name):
+	if not "." in file_name:
+		return False
+	_=file_name.rsplit(".", 1)[1]
+	if _.upper() in app.config['ALLOWED_VIDEOS']:
+		return True
+	else:
+		return False

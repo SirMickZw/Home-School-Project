@@ -30,10 +30,30 @@ class Post(db.Model):
 	def __repr__(self):
 		return f"Post('{self.title}','{self.date_posted}')"
 
+class Notes(db.Model):
+	id=db.Column(db.Integer, primary_key=True)
+	title=db.Column(db.String(25), nullable=False)
+	level=db.Column(db.String(10), nullable=False)
+	content=db.Column(db.Text, nullable=True)
+	subject=db.Column(db.Integer, db.ForeignKey('subjects.course_id'), nullable=False)
+	file=db.relationship('Files', backref='content', lazy=True)
+	def __repr__(self):
+		return f"Notes ('{self.title}', '{self.level}', '{self.content}', '{self.subject}','{self.file}')"
+
+class Files(db.Model):
+	id=db.Column(db.Integer, primary_key=True)
+	file_name=db.Column(db.String(100), nullable=False)
+	title=db.Column(db.String(100), nullable=True)
+	subject=db.Column(db.String(100), nullable=True)
+	notes=db.Column(db.Integer, db.ForeignKey('notes.id'), nullable=True)
+	def __repr__(self):
+		return f"Files ('{self.file_name}', '{self.file_type}', '{self.content}')"
+
 class Subjects(db.Model):
 	course_id=db.Column(db.Integer, primary_key=True)
 	course_code=db.Column(db.String(100), nullable=False)
 	course_name=db.Column(db.String(100), nullable=False)
+	assignments=db.relationship('Notes', backref='course', lazy=True)
 	assignments=db.relationship('Assignment', backref='course', lazy=True)
 	def __repr__(self):
 		return f"Subjects('{self.course_id}''{self.course_code}','{self.course_name}')"

@@ -15,7 +15,7 @@
     <h3>Here Is Work To Mark</h3>
     {%for work in work%}  
     <h2>{{work.student_name}}</h2>{{work.title}} - {{work.subject}} |
-        <a class="btn btn-info btn-sm" href="{{url_for('mark_assignment', post_id=work.id)}}">Grade    </a>
+        <a class="btn btn-info btn-md" href="{{url_for('mark_assignment', post_id=work.id)}}">Grade    </a>
         <h2>{{work.marks}}%</h2>
         <hr>
 

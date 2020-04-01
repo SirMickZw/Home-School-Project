@@ -76,27 +76,43 @@
   {%endif%}
 
   {% if current_user.user_role=='Lecturer'%}
-  <h1>Lecturer</h1>
+    <div class="row">
+      <div class="col-md-3">
+        <a href="{{url_for('upload_file')}}" class="btn btn-primary btn-lg"> Upload File</a>
+      </div>
+      <div class="col-sm-3">
+        <a href="{{url_for('ViewSubmited')}}" class="btn btn-secondary btn-lg"> Assignments</a>
+      </div>
+      <div class="col-sm-3">
+        <a href="{{url_for('ViewSubmited')}}" class="btn btn-primary btn-lg"> Students</a>
+      </div>
+    </div>
   {%endif%}
 
   {% if current_user.user_role=='Parent'%}
-  <h1>Parent</h1>
-  <form action="student_search" method="POST">
-    {{ form.hidden_tag() }}
-    <div class="form-group">
-      {{form.name.label(class="form-control-label")}} 
-      {%if form.name.errors%}
-          {{form.name(class="form-control  form-control-lg is-invalid")}} 
-          <div class="invalid-feedback">
-              {%for error in form.name.errors%}
-                  <span>{{error}}</span>
-              {%endfor%}
-          </div>
-      {%else%}
-          {{form.name(class="form-control  form-control-lg ")}} 
-      {%endif%}
-    </div>
-    <button type="search">Search</button>
-  </form>
+<div class="row">
+  <div class="col=sm-3">
+    <a href="#" class="btn btn-primary btn-md"> Donate</a>
+  </div>
+
+  <div class="col-sm-9">
+    <form action="student_search" method="POST">
+      {{ form.hidden_tag() }}
+      <div class="form-group">
+          {%if form.name.errors%}
+            {{form.name(class="form-control  form-control-lg is-invalid")}} 
+            <div class="invalid-feedback">
+                {%for error in form.name.errors%}
+                    <span>{{error}}</span>
+                {%endfor%}
+            </div>
+        {%else%}
+            {{form.name(class="form-control  form-control-lg ", placeholder="search your Student's name here" )}} 
+        {%endif%}
+      </div>
+      <button type="search" class="btn btn-secondary">Search</button>
+    </form>
+  </div>
+</div>
   {%endif%}
   {%endblock%}

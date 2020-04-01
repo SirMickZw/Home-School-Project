@@ -1,11 +1,19 @@
      {% extends "layout.html"%}
 {% block content %}
   <h2>{{result.student_name}}</h2>
-<table border = 1 style="padding: 5px; margin: 5px;">
-    {% for result in result %}
+<table class="table table-condensed">
+   <thead>
+      <tr>
+        <th>Subject</th>
+        <th>Assignemnt</th>
+        <th>Mark</th>
+        <th>Class Average</th>
+      </tr>
+    </thead> {% for result in result %}
        <tr>
-          <th> {{ result.subject }} </th>
+          <td> {{ result.subject }} </td>
           <td> {{ result.title }} </td>
+          <td> {{ result.marks }}%</td>
           <td> {{ result.marks }}%</td>
        </tr>
     {% endfor %}
@@ -14,3 +22,45 @@
 
 
      
+
+
+
+
+
+
+
+
+
+<div class="container">
+  <h2>Condensed Table</h2>
+  <p>The .table-condensed class makes a table more compact by cutting cell padding in half:</p>            
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>John</td>
+        <td>Doe</td>
+        <td>john@example.com</td>
+      </tr>
+      <tr>
+        <td>Mary</td>
+        <td>Moe</td>
+        <td>mary@example.com</td>
+      </tr>
+      <tr>
+        <td>July</td>
+        <td>Dooley</td>
+        <td>july@example.com</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
